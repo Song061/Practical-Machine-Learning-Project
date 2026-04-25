@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="generator" content="litedown 0.8">
+<title></title>
+<style type="text/css">
+body {
+  font-family: sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 1.5;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+body, .abstract, code, .footnotes, footer, #refs, .caption { font-size: .9em; }
+li li { font-size: .95em; }
+ul:has(li > input[type="checkbox"]) { list-style: none; padding-left: 1em; }
+*, :before, :after { box-sizing: border-box; }
+a { color: steelblue; }
+pre, img { max-width: 100%; }
+pre { white-space: pre-wrap; word-break: break-word; }
+pre code { display: block; padding: 1em; overflow-x: auto; }
+code { font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace; }
+:not(pre, th) > code, code[class], div > .caption { background: #f8f8f8; }
+pre > code:is(:not([class]), .language-plain, .language-none, .plain), .box, .figure, .table { background: inherit; border: 1px solid #eee; }
+pre > code {
+  &.message { border-color: #9eeaf9; }
+  &.warning { background: #fff3cd; border-color: #fff3cd; }
+  &.error { background: #f8d7da; border-color: #f8d7da; }
+}
+.fenced-chunk { border-left: 1px solid #666; }
+.code-fence {
+  opacity: .4;
+  border: 1px dashed #666;
+  border-left: 2px solid;
+  &:hover { opacity: inherit; }
+}
+.box, .figure, .table, table { margin: 1em auto; }
+div > .caption { padding: 1px 1em; }
+.figure { p:has(img, svg), pre:has(svg) { text-align: center; } }
+.flex-col { display: flex; justify-content: space-between; }
+table {
+  &:only-child:not(.table > *) { margin: auto; }
+  th, td { padding: 5px; font-variant-numeric: tabular-nums; }
+  thead, tfoot, tr:nth-child(even) { background: whitesmoke; }
+  thead th { border-bottom: 1px solid #ddd; }
+  &:not(.datatable-table) {
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #666;
+  }
+}
+blockquote {
+  color: #666;
+  margin: 0;
+  padding: 1px 1em;
+  border-left: .5em solid #eee;
+}
+hr, .footnotes::before { border: 1px dashed #ddd; }
+.frontmatter { text-align: center; }
+#TOC {
+  a { text-decoration: none; }
+  ul { list-style: none; padding-left: 1em; }
+  & > ul { padding: 0; }
+  ul ul { border-left: 1px solid lightsteelblue; }
+}
+.body h2 { border-bottom: 1px solid #666; }
+.body .appendix, .appendix ~ h2 { border-bottom-style: dashed; }
+.main-number::after { content: "."; }
+span[class^="ref-number-"] { font-weight: bold; }
+.ref-number-fig::after, .ref-number-tab::after { content: ":"; }
+.cross-ref-chp::before { content: "Chapter "; }
+.cross-ref-sec::before { content: "Section "; }
+.cross-ref-fig::before, .ref-number-fig::before { content: "Figure "; }
+.cross-ref-tab::before, .ref-number-tab::before { content: "Table "; }
+.cross-ref-eqn::before, .MathJax_ref:has(mjx-mtext > mjx-c + mjx-c)::before { content: "Equation "; }
+.abstract, #refs {
+  &::before { display: block; margin: 1em auto; font-weight: bold; }
+}
+.abstract::before { content: "Abstract"; text-align: center; }
+#refs::before { content: "Bibliography"; font-size: 1.5em; }
+.ref-paren-open::before { content: "("; }
+.ref-paren-close::after { content: ")"; }
+.ref-semicolon::after { content: "; "; }
+.ref-and::after { content: " and "; }
+.ref-et-al::after { content: " et al."; font-style: italic; }
+.footnote-ref a {
+  &::before { content: "["; }
+  &::after { content: "]"; }
+}
+section.footnotes {
+  margin-top: 2em;
+  &::before { content: ""; display: block; max-width: 20em; }
+}
+.fade {
+  background: repeating-linear-gradient(135deg, white, white 30px, #ddd 32px, #ddd 32px);
+  opacity: 0.6;
+}
+
+@media print {
+  body { max-width: 100%; }
+  tr, img { break-inside: avoid; }
+}
+@media only screen and (min-width: 992px) {
+  body:not(.pagesjs) pre:has(.line-numbers):not(:hover) { white-space: pre; }
+}
+</style>
+</head>
+<body>
+<div class="frontmatter">
+</div>
+<div class="body">
+<h1 id="chp:_1">=========================</h1>
+<h1 id="chp:practical-ml-project-script">Practical ML Project Script</h1>
+<h1 id="chp:_2">=========================</h1>
+<h1 id="chp:install-packages-if-needed">Install packages if needed</h1>
+<p>packages &lt;- c(“caret”,“rpart”,“rpart.plot”,“randomForest”,“corrplot”)
+installed &lt;- rownames(installed.packages())</p>
+<p>for(p in packages){
+if(!(p %in% installed)){
+install.packages(p)
+}
+}</p>
+<p>library(caret)
+library(rpart)
+library(rpart.plot)
+library(randomForest)
+library(corrplot)</p>
+<p>set.seed(12345)</p>
+<h1 id="chp:_3">———————––</h1>
+<h1 id="chp:load-data">Load Data</h1>
+<h1 id="chp:_4">———————––</h1>
+<p>trainUrl &lt;- “<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv</a>”
+testUrl  &lt;- “<a href="https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv">https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv</a>”</p>
+<p>trainRaw &lt;- read.csv(trainUrl)
+testRaw  &lt;- read.csv(testUrl)</p>
+<h1 id="chp:_5">———————––</h1>
+<h1 id="chp:data-cleaning">Data Cleaning</h1>
+<h1 id="chp:_6">———————––</h1>
+<p>NZV &lt;- nearZeroVar(trainRaw, saveMetrics = TRUE)
+trainData &lt;- trainRaw[, !NZV$nzv]
+testData  &lt;- testRaw[, !NZV$nzv]</p>
+<p>colsToRemove &lt;- grepl(”^X|timestamp|user_name”, names(trainData))
+trainData &lt;- trainData[, !colsToRemove]
+testData  &lt;- testData[, !colsToRemove]</p>
+<p>trainData &lt;- trainData[, colSums(is.na(trainData)) == 0]
+testData  &lt;- testData[, colSums(is.na(testData)) == 0]</p>
+<h1 id="chp:_7">———————––</h1>
+<h1 id="chp:split-data">Split Data</h1>
+<h1 id="chp:_8">———————––</h1>
+<p>inTrain &lt;- createDataPartition(trainData$classe, p = 0.7, list = FALSE)
+training &lt;- trainData[inTrain, ]
+validation &lt;- trainData[-inTrain, ]</p>
+<h1 id="chp:_9">———————––</h1>
+<h1 id="chp:decision-tree">Decision Tree</h1>
+<h1 id="chp:_10">———————––</h1>
+<p>modelTree &lt;- rpart(classe ~ ., data = training, method = “class”)
+predTree &lt;- predict(modelTree, validation, type = “class”)</p>
+<p>cat(“Decision Tree Results:\n”)
+print(confusionMatrix(predTree, validation$classe))</p>
+<h1 id="chp:_11">———————––</h1>
+<h1 id="chp:random-forest">Random Forest</h1>
+<h1 id="chp:_12">———————––</h1>
+<p>modelRF &lt;- train(
+classe ~ .,
+data = training,
+method = “rf”,
+trControl = trainControl(method = “cv”, number = 5),
+ntree = 250
+)</p>
+<p>predRF &lt;- predict(modelRF, validation)</p>
+<p>cat(”\nRandom Forest Results:\n”)
+cm &lt;- confusionMatrix(predRF, validation$classe)
+print(cm)</p>
+<p>accuracy &lt;- cm$overall[“Accuracy”]
+oos_error &lt;- 1 - accuracy</p>
+<p>cat(”\nAccuracy:”, accuracy, “\n”)
+cat(“Out-of-sample error:”, oos_error, “\n”)</p>
+<h1 id="chp:_13">———————––</h1>
+<h1 id="chp:final-prediction">Final Prediction</h1>
+<h1 id="chp:_14">———————––</h1>
+<p>finalPred &lt;- predict(modelRF, testData[, -ncol(testData)])
+print(finalPred)</p>
+<h1 id="chp:_15">———————––</h1>
+<h1 id="chp:generate-submission-files">Generate submission files</h1>
+<h1 id="chp:_16">———————––</h1>
+<p>pml_write_files &lt;- function(x){
+for(i in 1:length(x)){
+filename &lt;- paste0(“problem_id_”, i, “.txt”)
+write.table(x[i], file = filename, quote = FALSE,
+row.names = FALSE, col.names = FALSE)
+}
+}</p>
+<p>pml_write_files(finalPred)</p>
+<p>cat(”\nAll prediction files generated!\n”)</p>
+<p>install.packages(“knitr”)
+install.packages(“markdown”)</p>
+<p>library(knitr)</p>
+<p>knit2html(“pml_project.R”, output = “report.html”)</p>
+</div>
+</body>
+</html>
